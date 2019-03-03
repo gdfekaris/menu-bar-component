@@ -40,69 +40,69 @@ app.get('/username', (req, res) => {
   })
 });
 
-app.post(`/createProfile`, (req, res) => {
-  mongo.client.connect((err) => {
-    const db = mongo.client.db(`menu-bar-data`);
-    const users = db.collection(`users`);
-    if (err) {
-      console.log(err);
-      res.status(500).end();
-    } else {
-      console.log('POST api called')
-    }
+// app.post(`/createProfile`, (req, res) => {
+//   mongo.client.connect((err) => {
+//     const db = mongo.client.db(`menu-bar-data`);
+//     const users = db.collection(`users`);
+//     if (err) {
+//       console.log(err);
+//       res.status(500).end();
+//     } else {
+//       console.log('POST api called')
+//     }
 
-    new Promise((resolve, reject) => {
-      users.insertOne(req.body, (err, r) => {
-        assert.equal(null, err);
-        resolve(assert.equal(1, r.insertedCount));
-      })
-    })
-      .then(() => res.status(200))
-      .then(() => mongo.client.close(console.log('POST API complete')));
-  })
-})
+//     new Promise((resolve, reject) => {
+//       users.insertOne(req.body, (err, r) => {
+//         assert.equal(null, err);
+//         resolve(assert.equal(1, r.insertedCount));
+//       })
+//     })
+//       .then(() => res.status(200))
+//       .then(() => mongo.client.close(console.log('POST API complete')));
+//   })
+// })
 
-app.delete(`/deleteProfile`, (req, res) => {
-  mongo.client.connect((err) => {
-    const db = mongo.client.db(`menu-bar-data`);
-    const users = db.collection(`users`);
-    if (err) {
-      console.log(err);
-      res.status(500).end();
-    } else {
-      console.log('DELETE api called')
-    }
+// app.delete(`/deleteProfile`, (req, res) => {
+//   mongo.client.connect((err) => {
+//     const db = mongo.client.db(`menu-bar-data`);
+//     const users = db.collection(`users`);
+//     if (err) {
+//       console.log(err);
+//       res.status(500).end();
+//     } else {
+//       console.log('DELETE api called')
+//     }
 
-    new Promise((resolve, reject) => {
-      users.deleteOne(req.body);
-      resolve(e);
-    })
-      .then((e) => { console.log(e); })
-      .then(() => res.status(200))
-      .then(() => mongo.client.close(console.log('DELETE API complete')));
-  })
-})
+//     new Promise((resolve, reject) => {
+//       users.deleteOne(req.body);
+//       resolve(e);
+//     })
+//       .then((e) => { console.log(e); })
+//       .then(() => res.status(200))
+//       .then(() => mongo.client.close(console.log('DELETE API complete')));
+//   })
+// })
 
-app.put(`/updateProfile`, (req, res) => {
-  mongo.client.connect((err) => {
-    const db = mongo.client.db(`menu-bar-data`);
-    const users = db.collection(`users`);
-    if (err) {
-      console.log(err);
-      res.status(500).end();
-    } else {
-      console.log('PUT api called')
-    }
+// app.put(`/updateProfile`, (req, res) => {
+//   mongo.client.connect((err) => {
+//     const db = mongo.client.db(`menu-bar-data`);
+//     const users = db.collection(`users`);
+//     if (err) {
+//       console.log(err);
+//       res.status(500).end();
+//     } else {
+//       console.log('PUT api called')
+//     }
 
-    new Promise((resolve, reject) => {
-      users.updateOne(req.body.user_id, { $set: req.body.update });
-      resolve(e);
-    })
-      .then((e) => { console.log(e); })
-      .then(() => res.status(200))
-      .then(() => mongo.client.close(console.log('PUT API complete')));
-  })
-})
+//     new Promise((resolve, reject) => {
+//       users.updateOne(req.body.user_id, { $set: req.body.update });
+//       resolve(e);
+//     })
+//       .then((e) => { console.log(e); })
+//       .then(() => res.status(200))
+//       .then(() => mongo.client.close(console.log('PUT API complete')));
+//   })
+// })
 
 app.listen(port, () => console.log(`Menu Bar server listening on port ${port}!`));
 
