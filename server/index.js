@@ -4,7 +4,14 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
-const mongo = require('../MongoDB/index.js');
+//const mongo = require('../MongoDB/index.js');
+
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+//const url = 'mongodb://localhost:27017';
+const url = 'mongodb://54.215.246.57:27017';
+const dbName = 'menu-bar-data';
+const mongo = new MongoClient(url, { useNewUrlParser: true });
 
 app.use(helmet());
 
