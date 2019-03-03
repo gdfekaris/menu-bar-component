@@ -4,14 +4,7 @@ const express = require('express');
 const app = express();
 const helmet = require('helmet');
 const cors = require('cors');
-//const mongo = require('../MongoDB/index.js');
-
-const MongoClient = require('mongodb').MongoClient;
-//const assert = require('assert');
-//const url = 'mongodb://localhost:27017';
-const url = 'mongodb://54.215.246.57:27017';
-const dbName = 'menu-bar-data';
-const mongo = new MongoClient(url, { useNewUrlParser: true });
+const mongo = require('../MongoDB/index.js');
 
 app.use(helmet());
 
@@ -21,8 +14,8 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/username', (req, res) => {
-  mongo.connect((err) => {
-    const db = mongo.db(`menu-bar-data`);
+  mongo.client.connect((err) => {
+    const db = mongo.client.db(`menu-bar-data`);
     const users = db.collection(`users`);
     if (err) {
       console.log(err);
@@ -43,7 +36,7 @@ app.get('/username', (req, res) => {
       })
     })
     .then((data) => res.status(200).send(JSON.stringify(data)))
-      .then(() => mongo.close(console.log('GET API complete')));
+      .then(() => mongo.client.close(console.log('GET API complete')));
   })
 });
 

@@ -7,7 +7,6 @@ const client = new MongoClient(url, { useNewUrlParser: true });
 
 client.connect(function (err) {
   if (err) { console.log(err) }
-  const db = client.db(dbName);
   console.log(`Connected to MongoDB`);
 });
 
