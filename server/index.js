@@ -21,8 +21,8 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/username', (req, res) => {
-  mongo.client.connect((err) => {
-    const db = mongo.client.db(`menu-bar-data`);
+  mongo.connect((err) => {
+    const db = mongo.db(`menu-bar-data`);
     const users = db.collection(`users`);
     if (err) {
       console.log(err);
@@ -43,7 +43,7 @@ app.get('/username', (req, res) => {
       })
     })
     .then((data) => res.status(200).send(JSON.stringify(data)))
-      .then(() => mongo.client.close(console.log('GET API complete')));
+      .then(() => mongo.close(console.log('GET API complete')));
   })
 });
 
