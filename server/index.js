@@ -36,7 +36,7 @@ app.get('/username', (req, res) => {
       })
     })
     .then((data) => res.status(200).send(JSON.stringify(data)))
-      .then(() => mongo.client.close(console.log('GET API complete')));
+      .then(() => console.log('GET API complete'));
   })
 });
 
