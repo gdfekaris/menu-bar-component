@@ -3,6 +3,7 @@ This service renders Twitch streamer information. The information includes numbe
 
 ## Getting Started
 
+### local
 - Run `npm install` in the repo directory.
 
 - Run `sudo mongod` in a free terminal pane to start your local MongoDB server.
@@ -15,6 +16,38 @@ This service renders Twitch streamer information. The information includes numbe
 
 - Access the service @ `http://localhost:3015`. It will take about 10 seconds to load, since it it not optimized yet.
 
+### EC2
+- Spin up 2 instances: one for the menu-bar-component, and one for the DBMS.
+
+- On the DBMS instance, install MongoDB using [these instructions](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/#install-mongodb-community-edition).
+
+- Configure MongoDB's IP binding by running `sudo nano /etc/mongod.conf`. Find the `net` configuration and comment out the `bindIp` line. It should look like this:
+```
+# network interfaces
+net:
+  port: 27017
+#  bindIp: 127.0.0.1  <- comment out this line
+```
+
+- If you want to set up authorization for connecting to the db, checkout [this](https://ianlondon.github.io/blog/mongodb-auth/). Remember that setting up authorization will require adding lines of code to `MongoDB/seedScript.js` and `MongoDB/index.js`.
+
+- Run `sudo service mongod restart` to make the changes take effect.
+
+- Now, on the menu-bar-service instance, install Node.js using [these instructions](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html). Note: the `.nvmrc` file in this repo has the suggested Node version to install with NVM.
+
+- Clone this repo to the menu-bar-service instance.
+
+- Enter the repo and run `rm package-lock.json`.
+
+- Run `npm install`.
+
+- Run `nano MongoDB/seedScript.js` and change the IP and Port on line 4 to match your MongoDB EC2 instance. Run `nano MongoDB/index.js` and do the same thing again on line 4.
+
+- Run `npm run mongoSeed`. This will take a while.
+
+- Now start the menu-bar-component service by running `node server/index.js > stdout.txt 2> stderr.txt &`.
+
+- Use `cat stdout.txt` and `cat stderr.txt` to check logs and errors.
 
 ## Routes:
 
@@ -45,7 +78,7 @@ app.get('/getProfile', (req, res) => {
       })
     })
     .then((data) => res.status(200).send(JSON.stringify(data)))
-    .then(() => db.close(console.log('GET API complete')));
+    .then(() => console.log('GET API complete'));
   })
 });
 ```
@@ -72,7 +105,7 @@ app.post(`/createProfile`, (req, res) => {
       })
     })
       .then(() => res.status(200))
-      .then(() => db.close(console.log('POST API complete')));
+      .then(() => console.log('POST API complete'));
   })
 })
 ```
@@ -98,7 +131,7 @@ app.delete(`/deleteProfile`, (req, res) => {
     })
       .then((e) => { console.log(e); })
       .then(() => res.status(200))
-      .then(() => db.close(console.log('DELETE API complete')));
+      .then(() => console.log('DELETE API complete'));
   })
 })
 ```
@@ -125,7 +158,7 @@ app.put(`/updateProfile`, (req, res) => {
     })
       .then((e) => { console.log(e); })
       .then(() => res.status(200))
-      .then(() => db.close(console.log('PUT API complete')));
+      .then(() => console.log('PUT API complete'));
   })
 })
 ```
