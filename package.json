@@ -4,43 +4,18 @@
   "description": "Recreating Twitch Profile Service",
   "main": "index.js",
   "scripts": {
-    "react-dev": "webpack -d --watch",
     "start": "node server/index.js",
-    "start-database": "mysql -uroot -p < database/Schema.sql",
-    "seed-database": "node database/seedData.js",
-    "mongoSeed": "node MongoDB/seedScript.js",
-    "pgSeed": "node PostgreSQL/seedScript.js",
-    "test": "jest"
+    "mongoSeed": "node MongoDB/seedScript.js"
   },
-  "author": "Milena Milano",
+  "author": "gdf",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.4",
-    "@babel/preset-react": "^7.0.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.5",
     "body-parser": "^1.17.0",
     "cors": "^2.8.5",
-    "css-loader": "^2.1.0",
     "express": "^4.15.0",
     "faker": "^4.1.0",
     "helmet": "^3.15.1",
-    "jquery": "^3.1.1",
-    "knex": "^0.16.3",
     "make-runnable": "^1.3.6",
-    "mongodb": "^3.1.13",
-    "mysql": "^2.16.0",
-    "pg": "^7.8.0",
-    "react": "^15.6.2",
-    "react-bootstrap": "^0.32.4",
-    "react-dom": "^15.6.2",
-    "react-router-dom": "^4.3.1",
-    "regenerator-runtime": "^0.13.1",
-    "request": "^2.81.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "mongodb": "^3.1.13"
   }
 }
