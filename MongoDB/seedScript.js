@@ -5,7 +5,7 @@ const url = 'mongodb://172.31.2.0:27017';
 const client = new MongoClient(url, { useNewUrlParser: true });
 const dbName = 'menu-bar-data';
 const usersCollection = 'users';
-const fakeLogoArray = require('../database/fakeLogoArray');
+const fakeLogoArray = require('./fakeLogoArray.js');
 
 const randomizer = (array) => {
   let limit = array.length - 1;
