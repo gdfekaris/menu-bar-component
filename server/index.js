@@ -1,4 +1,4 @@
-require('newrelic');
+//require('newrelic');
 
 const port = 3015 || process.env.PORT;
 const assert = require('assert');
