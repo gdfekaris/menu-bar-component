@@ -1,4 +1,6 @@
-const port = 443 || process.env.PORT;
+require('newrelic');
+
+const port = 3015 || process.env.PORT;
 const assert = require('assert');
 const express = require('express');
 const app = express();
@@ -25,7 +27,7 @@ app.get('/username', (req, res) => {
     }
 
     new Promise((resolve, reject) => {
-      users.find({}, { "limit": 100, "skip": 9999900 })
+      users.find({ _id: { $gt: 9999900 } }) /* find({}, { "limit": 100, "skip": 9999900 }) */
       .toArray((err, docs) => {
         if (err) {
           console.log(err);
