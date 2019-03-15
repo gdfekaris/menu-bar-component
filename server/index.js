@@ -1,4 +1,4 @@
-require('newrelic');
+//require('newrelic');
 
 const MongoClient = require('mongodb').MongoClient;
 //var mongo;
